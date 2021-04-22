@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> opis;
     ArrayList<String> datum;
 
+
     RecyclerView recyclerView;
     recyclerAdapter adapter;
 
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         iznos = new ArrayList<>();
         opis = new ArrayList<>();
         datum = new ArrayList<>();
+
+
 
         //POČETAK: UKUPNO NOVCA U NOVČANUKU
         preferences = getSharedPreferences("com.example.mojnovcanik", Context.MODE_PRIVATE);
@@ -165,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
                     sDatum = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(new Date());
                     SQLHelper sqlHelper = new SQLHelper(MainActivity.this);
                     sqlHelper.dodajUListu(sIznos, sOpis, sDatum);
+
                     ukupanNovacUNovcaniku += Integer.parseInt(sIznos);
                     sacuvajStanjeNovca();
                     ispisiStanjeNovca();
@@ -185,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
                     SQLHelper sqlHelper = new SQLHelper(MainActivity.this);
                     sIznos = "-"+etIznos.getText().toString().trim();
                     sqlHelper.dodajUListu(sIznos, sOpis, sDatum);
+
                     //ukupanNovacUNovcaniku -= Integer.parseInt(sIznos);
                     sacuvajStanjeNovca();
                     ispisiStanjeNovca();

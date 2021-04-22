@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -56,9 +57,12 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ViewHo
         String value = holder.tvIznos.getText().toString().trim();
         if(value.charAt(0) == '-'){
             holder.tvIznos.setTextColor(Color.RED);
+            holder.ikonica.setImageResource(R.drawable.ic_rashod);
         }else{
             holder.tvIznos.setTextColor(Color.GREEN);
+            holder.ikonica.setImageResource(R.drawable.ic_prihod);
         }
+
 
     }
 
@@ -69,12 +73,14 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvIznos,tvOpis,tvDatum;
+        ImageView ikonica;
         //CardView cardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvIznos = itemView.findViewById(R.id.tvIznos);
             tvOpis = itemView.findViewById(R.id.tvOpis);
             tvDatum = itemView.findViewById(R.id.tvDatum);
+            ikonica = itemView.findViewById(R.id.ikonica);
            // cardView = itemView.findViewById(R.id.cardView);
 
         }
