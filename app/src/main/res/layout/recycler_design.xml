@@ -24,7 +24,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_baseline_arrow_circle_down_24"
+                    android:src="@drawable/ic_rashod"
                     app:tint="#999999" />
             </RelativeLayout>
             <View
