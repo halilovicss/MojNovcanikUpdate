@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         opis = new ArrayList<>();
         datum = new ArrayList<>();
 
+        bottomNavigationView.setSelectedItemId(0);
+
 
 
         //POČETAK: UKUPNO NOVCA U NOVČANUKU
@@ -77,29 +80,9 @@ public class MainActivity extends AppCompatActivity {
         adapter = new recyclerAdapter(MainActivity.this,this,iznos,opis,datum);
         recyclerView.setAdapter(adapter);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.page_1:
-                        Toast.makeText(MainActivity.this, "PRVA STRANICA", Toast.LENGTH_SHORT).show();
-                        /*Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                        startActivity(intent);*/
-                        setContentView(R.layout.activity_main);
-                        return true;
-
-                    case R.id.page_2:
-                        Toast.makeText(MainActivity.this, "DRUGA STRANICA", Toast.LENGTH_SHORT).show();
-                       /* Intent intent1 = new Intent(getApplicationContext(),PodesavanjaActivity.class);
-                        startActivity(intent1);*/
-                        setContentView(R.layout.activity_podesavanja);
-                        return true;
-                }
 
 
-                return false;
-            }
-        });
+
 
 
 

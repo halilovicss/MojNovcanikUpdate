@@ -15,20 +15,25 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:layout_margin="20dp"
         android:textSize="20dp"
+
         android:text="TextView" />
 
     <EditText
         android:id="@+id/etIznos"
+        android:text=""
+        android:inputType="number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:inputType="number"
         android:layout_marginBottom="10dp"
-        android:hint="Iznos"/>
+        android:hint="Cifra"
+        />
+
+
     <EditText
         android:id="@+id/etOpis"
         android:text=""
-        android:maxLength="15"
+        android:maxLength="20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
