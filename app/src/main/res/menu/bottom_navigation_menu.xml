@@ -4,9 +4,9 @@
         android:id="@+id/page_1"
         android:enabled="true"
         android:icon="@drawable/ic_home"
-        android:title="@string/text_label_1"/>
+        android:title="@string/pocetna" />
     <item
         android:id="@+id/page_2"
         android:icon="@drawable/ic_settings"
-        android:title="@string/text_label_2"/>
+        android:title="@string/podesavanja" />
 </menu>

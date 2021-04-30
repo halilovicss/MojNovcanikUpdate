@@ -60,13 +60,13 @@
                                 android:layout_width="15dp"
                                 android:layout_height="0dp" />
                             <TextView
+                                android:id="@+id/text_stanjeunovcaniku"
+                                android:text="@string/stanjeNaslov"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="sans-serif-medium"
                                 android:gravity="center_vertical"
-                                android:text="Stanje u novčaniku"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="#B3E5FC" />
                             <ImageButton
                                 android:onClick="ocisti"
@@ -82,7 +82,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Bilans"
+                            android:text="@string/stanje"
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                             android:textColor="#E1F5FE" />
                         <TextView
@@ -142,10 +142,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:fontFamily="sans-serif-medium"
-                                android:text="Dodaj"
+                                android:text="@string/dodaj"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="#1A237E" />
+
+
                         </LinearLayout>
+
                     </androidx.cardview.widget.CardView>
                     <View
                         android:layout_width="3dp"
@@ -185,7 +188,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:fontFamily="sans-serif-medium"
-                                android:text="Skini"
+                                android:text="@string/troskovi"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="#1A237E" />
                         </LinearLayout>
@@ -198,7 +201,7 @@
                     android:layout_marginBottom="5dp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center"
-                    android:text="Lista transakcija"
+                    android:text="@string/listaTransakcija"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textColor="#999999" />
 
@@ -215,6 +218,8 @@
             android:layout_height="4dp"
             android:layout_alignParentBottom="true" />
     </RelativeLayout>
+
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavView"
         android:layout_width="match_parent"

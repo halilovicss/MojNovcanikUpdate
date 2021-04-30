@@ -7,9 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,31 +45,56 @@ public class MainActivity extends AppCompatActivity {
 
     int ukupanNovacUNovcaniku;
     SharedPreferences preferences;
-    TextView tvUkupanNovac;
+    TextView tvUkupanNovac, txtStanjeUNovcaniku;
 
     BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        loadLocale();  //ucitavanje spremljenog jezika apliakcije
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.recyclerView);
         tvUkupanNovac = findViewById(R.id.tvUkupanNovac);
         bottomNavigationView = findViewById(R.id.bottomNavView);
 
+
         iznos = new ArrayList<>();
         opis = new ArrayList<>();
         datum = new ArrayList<>();
-
         bottomNavigationView.setSelectedItemId(0);
 
 
+        //izbornik
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.page_1:
+                        //Toast.makeText(MainActivity.this, "PRVA STRANICA", Toast.LENGTH_SHORT).show();
+
+                        break;
+
+                    case R.id.page_2:
+                        // Toast.makeText(MainActivity.this, "DRUGA STRANICA", Toast.LENGTH_SHORT).show();
+                        Intent intent1 = new Intent(getApplicationContext(), PodesavanjaActivity.class);
+                        startActivity(intent1);
+                        // setContentView(R.layout.activity_podesavanja);
+                        break;
+                }
+                return false;
+            }
+        });
+
+//kraj izbornika
 
         //POČETAK: UKUPNO NOVCA U NOVČANUKU
         preferences = getSharedPreferences("com.example.mojnovcanik", Context.MODE_PRIVATE);
-        ukupanNovacUNovcaniku = preferences.getInt("novac",0);
-       ispisiStanjeNovca();
+        ukupanNovacUNovcaniku = preferences.getInt("novac", 0);
+        ispisiStanjeNovca();
         //KRAJ: UKUPNO NOVCA U NOVČANUKU
 
         sqlHelper = new SQLHelper(this);
@@ -77,26 +106,45 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));*/
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new recyclerAdapter(MainActivity.this,this,iznos,opis,datum);
+        adapter = new recyclerAdapter(MainActivity.this, this, iznos, opis, datum);
         recyclerView.setAdapter(adapter);
-
-
-
-
-
-
 
 
     }
 
-    void storeDataInArrays(){
+    //postavljanje jezika apliakcije
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        ////save data to shared prefe
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("MY_Lang", lang);
+        editor.apply();
+
+    }
+
+    ///ucitaj jezik aplikacije
+    public void loadLocale() {
+        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefs.getString("MY_Lang", "");
+        setLocale(language);
+
+    }
+
+
+//kraj promjene jezika
+
+    void storeDataInArrays() {
         Cursor cursor = sqlHelper.readAllData();
-        if(cursor.getCount() == 0){
+        if (cursor.getCount() == 0) {
             Toast.makeText(this, "No data!", Toast.LENGTH_SHORT).show();
 
-        }else{
+        } else {
 
-            while(cursor.moveToNext()){
+            while (cursor.moveToNext()) {
                 //book_id.add(cursor.getString(0));
                 iznos.add(cursor.getString(0));
                 opis.add(cursor.getString(1));
@@ -143,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
         btnPotvrdi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tipTransakcije == true) {
+                if (tipTransakcije) {
                     String sIznos, sOpis, sDatum;
                     sIznos = etIznos.getText().toString().trim();
                     sOpis = etOpis.getText().toString().trim();
@@ -157,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
                     ispisiStanjeNovca();
                     dialog.dismiss();
                     recreate();
-                }else if(tipTransakcije == false) {
+                } else if (!tipTransakcije) {
                     String sIznos, sOpis, sDatum;
                     sIznos = etIznos.getText().toString().trim();
                     sOpis = etOpis.getText().toString().trim();
@@ -166,19 +214,18 @@ public class MainActivity extends AppCompatActivity {
                     sDatum = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(new Date());
                     if (Integer.parseInt(sIznos) > ukupanNovacUNovcaniku) {
                         Toast.makeText(MainActivity.this, "Nemate dovoljno para na računu!", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
+                    } else {
                         ukupanNovacUNovcaniku -= Integer.parseInt(sIznos);
-                    SQLHelper sqlHelper = new SQLHelper(MainActivity.this);
-                    sIznos = "-"+etIznos.getText().toString().trim();
-                    sqlHelper.dodajUListu(sIznos, sOpis, sDatum);
+                        SQLHelper sqlHelper = new SQLHelper(MainActivity.this);
+                        sIznos = "-" + etIznos.getText().toString().trim();
+                        sqlHelper.dodajUListu(sIznos, sOpis, sDatum);
 
-                    //ukupanNovacUNovcaniku -= Integer.parseInt(sIznos);
-                    sacuvajStanjeNovca();
-                    ispisiStanjeNovca();
-                    dialog.dismiss();
-                    recreate();
-                }
+                        //ukupanNovacUNovcaniku -= Integer.parseInt(sIznos);
+                        sacuvajStanjeNovca();
+                        ispisiStanjeNovca();
+                        dialog.dismiss();
+                        recreate();
+                    }
                 }
 
 
@@ -212,5 +259,6 @@ public class MainActivity extends AppCompatActivity {
         recreate();
 
     }
+
 
 }

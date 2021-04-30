@@ -1,5 +1,12 @@
 <resources>
-    <string name="app_name">Moj Novcanik</string>
-    <string name="text_label_1">Početna</string>
-    <string name="text_label_2">Podešavanja</string>
+    <string name="app_name">MY Wallet</string>
+    <string name="stanjeNaslov">Wallet balance</string>
+    <string name="stanje">Balance</string>
+    <string name="dodaj">Add Money</string>
+    <string name="troskovi">Add Expense</string>
+    <string name="listaTransakcija">List of transactions </string>
+    <string name="pocetna">Home</string>
+    <string name="podesavanja">Settings</string>
+
+    <string name="selected_language">English</string>
 </resources>

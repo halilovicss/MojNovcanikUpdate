@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Moj Novcanik</string>
+    <string name="stanjeNaslov">Moje stanje racuna</string>
+    <string name="stanje">Bilans</string>
+    <string name="dodaj">Dodaj</string>
+    <string name="troskovi">Trosak</string>
+    <string name="listaTransakcija">Lista Transakcija</string>
+    <string name="pocetna">Pocetna</string>
+    <string name="podesavanja">Podesavanja</string>
+    <string name="selected_language">Bosanski</string>
+
+
+</resources>
